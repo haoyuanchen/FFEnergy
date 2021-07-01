@@ -17,7 +17,7 @@ O           14.5620    8.3626   19.5668  -0.50
 O           11.7809    6.4018   21.5362  -0.50
 O           11.7809    4.8088   19.9476  -0.50
 
-example force field file (epsilon in K, sigma in A) (no empty lines in the end):
+example force field file (epsilon in K, sigma in A) (no empty lines in the end) (can have comments after the numbers):
 H           22.14    2.57
 C           52.83    3.43
 O           30.19    3.12
@@ -25,44 +25,11 @@ Cu          2.52     3.11
 Kr          166.4    3.636
 Xe          221.0    4.10
 
-example pair file (C12, C6, C4 (all in units derived from K and A)) (no empty lines in the end) (order in pair doesn't matter):
-Mg    Ow    36605101  66677  90833
+example pair file (C12, C6, C4 (all in units derived from K and A)) (no empty lines in the end) (can have comments after the numbers) (order in pair doesn't matter):
+Mg    Ow    36605101  66677  90833  #http://ambermd.org/tutorials/advanced/tutorial20/12_6_4.htm#ref3
 '''
 
-import math
-
-class atom(object):
-    def __init__(self, crd_line, crd_idx):
-        self.idx = crd_idx  #1-start
-        self.element = crd_line.strip().split()[0]
-        self.x = float(crd_line.strip().split()[1])
-        self.y = float(crd_line.strip().split()[2])
-        self.z = float(crd_line.strip().split()[3])
-        self.charge = float(crd_line.strip().split()[4])
-        self.epsilon = 0.0
-        self.sigma = 0.0
-    def getff(self, ff_dict):
-        self.epsilon = ff_dict[self.element][0]
-        self.sigma = ff_dict[self.element][1]
-
-class pair(object):
-    def __init__(self, atom1, atom2):
-        self.element1 = atom1.element
-        self.element2 = atom2.element
-        self.x1 = atom1.x
-        self.x2 = atom2.x
-        self.y1 = atom1.y
-        self.y2 = atom2.y
-        self.z1 = atom1.z
-        self.z2 = atom2.z
-        self.r = math.sqrt((self.x1-self.x2)**2+(self.y1-self.y2)**2+(self.z1-self.z2)**2)
-        self.c12 = 0.0
-        self.c6 = 0.0
-        self.c4 = 0.0
-    def getff(self, pair_dict):
-        self.c12 = pair_dict[self.element1,self.element2][0]
-        self.c6 = pair_dict[self.element1,self.element2][1]
-        self.c4 = pair_dict[self.element1,self.element2][2]
+from Classes import *
 
 def crd_parse(crd_file,guests):
     #guests: a list of the indices of guest atoms, 1-start
@@ -108,7 +75,7 @@ def pair_parse(pair_file):
     return pair_dict
 
 def lj(atom1,atom2,cut=12.8,scheme='T',mix='LB',debug=False):
-    r = math.sqrt((atom1.x-atom2.x)**2+(atom1.y-atom2.y)**2+(atom1.z-atom2.z)**2)
+    r = pair(atom1,atom2).r
     if mix == 'LB':  #Lorentz-Berthelot
         epsilon = math.sqrt(atom1.epsilon*atom2.epsilon)
         sigma = (atom1.sigma+atom2.sigma)*0.5
@@ -149,7 +116,7 @@ def lj_pair(pair1,cut=12.8,scheme='T',debug=False):  #specifically-defined pairw
     return e*0.0083    #convert to kJ/mol
 
 def coulomb(atom1,atom2,cut=12.8,debug=False):
-    r = math.sqrt((atom1.x-atom2.x)**2+(atom1.y-atom2.y)**2+(atom1.z-atom2.z)**2)
+    r = pair(atom1,atom2).r
     e = 0.0
     if r >= cut:
         e = 0.0
@@ -186,7 +153,7 @@ def energy(crd_file,ff_file,pair_file,pairs,guests,lj_cut=12.8,lj_scheme='T',lj_
     return e_lj, e_coulomb, e_lj+e_coulomb
 
 #single run example
-#energy('SPC_dimer.crd','UFF_And_SPC.ff','',[],[1,2,3],debug=True)
-#energy('MOF841_Node_Water_2_Re.crd','UFF_And_SPC.ff','',[],[71,72,73],debug=True)
-#energy('MOF841_Node_Water_2_Re_HtoHw.crd','UFF_And_SPC.ff','',[],[71,72,73],debug=True)
-energy('MgComplex.crd','UFF_And_SPC.ff','LJ1264.pair',[[1,13]],[13,14,15],debug=True)
+#energy('MOF841_Node_Water_2_Re_SPC.crd','UFF_And_Water.ff','',[],[71,72,73],debug=True)
+#energy('MOF841_Node_Water_2_Re_HtoHw_SPC.crd','UFF_And_Water.ff','',[],[71,72,73],debug=True)
+#energy('MOF841_Node_Water_2_Re_HtoHw_TIP4PEW.crd','UFF_And_Water.ff','',[],[71,72,73,74],debug=True)
+#energy('MgComplex_TIP4PEW.crd','UFF_And_Water.ff','LJ1264.pair',[[1,13]],[13,14,15,16],debug=True)
