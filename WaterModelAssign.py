@@ -15,7 +15,6 @@ TIP4PEW		0.9572		104.52		3.164		81.9		0.0		+0.52422	0.125		-1.04844
 '''
 
 from Classes import *
-import numpy as np
 
 def crd_parse(crd_file):
     f = open(crd_file, 'r')

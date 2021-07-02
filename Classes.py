@@ -6,7 +6,7 @@ useful classes
 Haoyuan Chen
 '''
 
-import math
+import numpy as np
 
 class atom(object):
     def __init__(self, crd_line, crd_idx=1):
@@ -35,12 +35,20 @@ class pair(object):
         self.y2 = atom2.y
         self.z1 = atom1.z
         self.z2 = atom2.z
-        self.r = math.sqrt((self.x1-self.x2)**2+(self.y1-self.y2)**2+(self.z1-self.z2)**2)
-        self.c12 = 0.0
-        self.c6 = 0.0
-        self.c4 = 0.0
-    def getff(self, pair_dict):
-        self.c12 = pair_dict[self.element1,self.element2][0]
-        self.c6 = pair_dict[self.element1,self.element2][1]
-        self.c4 = pair_dict[self.element1,self.element2][2]
+        self.r = np.sqrt((self.x1-self.x2)**2+(self.y1-self.y2)**2+(self.z1-self.z2)**2)
+        self.c12 = 0.0  #lj1264
+        self.c6 = 0.0  #lj1264
+        self.c4 = 0.0  #lj1264
+        self.de = 0.0  #morse
+        self.re = 0.0  #morse
+        self.a = 0.0  #morse
+    def getff(self, pair_dict, pair_style):
+        if pair_style == 'LJ1264':
+            self.c12 = pair_dict[self.element1,self.element2][0]
+            self.c6 = pair_dict[self.element1,self.element2][1]
+            self.c4 = pair_dict[self.element1,self.element2][2]
+        elif pair_style == 'Morse':
+            self.de = pair_dict[self.element1,self.element2][0]
+            self.re = pair_dict[self.element1,self.element2][1]
+            self.a = pair_dict[self.element1,self.element2][2]
 
