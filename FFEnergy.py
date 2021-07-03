@@ -24,10 +24,16 @@ O           30.19    3.12
 Cu          2.52     3.11
 
 example LJ1264 pair file (C12, C6, C4 (all in units derived from K and A)) (no empty lines in the end) (can have comments after the numbers) (order in pair doesn't matter):
-Mg    OwTIP4PEW    36605101  66677  90833  #http://ambermd.org/tutorials/advanced/tutorial20/12_6_4.htm#ref3
+Cu      OwTIP4PEW       47959346        83280   170685
+Ni      OwTIP4PEW       32418361        61863   130429
+Zn      OwTIP4PEW       38703873        70811   137021
+Co      OwTIP4PEW       40424743        73189   127209
+Cr      OwTIP4PEW       30988048        59762   89268
+Fe      OwTIP4PEW       38703873        70811   101194
+Mg      OwTIP4PEW       34207179        64455   90828
 
 example Morse pair file (De, re, a (all in units derived from K and A)) (no empty lines in the end) (can have comments after the numbers) (order in pair doesn't matter):
-Mg    OwTIP4PEW    1000  2.0  1.0  #made up
+Mg    OwTIP4PEW    1000  2.0  1.0
 '''
 
 from Classes import *
