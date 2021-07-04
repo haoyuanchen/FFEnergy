@@ -6,22 +6,25 @@ calculates binding energy in host-guest complexes using force fields
 Haoyuan Chen
 
 example coordinate file (X/Y/Z in A, charge in e) (no empty lines in the end):
-C            8.8379    4.3797   23.6832  -0.10
-C            9.8205    5.0770   22.9870  -0.10
-H           10.2176    6.0204   23.3654   0.20
-Cu          13.1715    7.4586   20.6275   1.00
-Cu          13.1715    5.7128   18.8869   1.00
-O           11.7809    8.3626   19.5668  -0.50
-O           14.5620    6.4018   21.5362  -0.50
-O           14.5620    8.3626   19.5668  -0.50
-O           11.7809    6.4018   21.5362  -0.50
-O           11.7809    4.8088   19.9476  -0.50
+Mg    -0.806425    -1.373218    -0.010104     1.400000
+O    -0.760397    -1.365648    -2.022940    -0.700000
+O     1.105258    -1.365661    -0.323754    -0.700000
+O    -2.789777    -1.339555     0.092605    -0.700000
+O    -1.023411    -1.343591     1.914885    -0.700000
+O    -0.830931    -3.381630    -0.035571    -1.000000
+H    -0.790376    -3.701630    -0.922564     0.500000
+H    -0.053094    -3.701630     0.461244     0.500000
+C    -2.452487    -1.387752     1.558865     0.700000
+H    -3.350230    -1.430799     2.256332     0.000000
+C     0.740047    -1.361630    -1.700270     0.700000
+H     1.361724    -1.361630    -2.763092     0.000000
 
 example force field file (epsilon in K, sigma in A) (no empty lines in the end) (can have comments after the numbers):
-H           22.14    2.57
-C           52.83    3.43
-O           30.19    3.12
-Cu          2.52     3.11
+H     22.14    2.57
+He    10.9     2.64
+Hf    36.23    2.80
+Hg    193.71   2.41
+Ho    3.52     3.04
 
 example LJ1264 pair file (C12, C6, C4 (all in units derived from K and A)) (no empty lines in the end) (can have comments after the numbers) (order in pair doesn't matter):
 Cu      OwTIP4PEW       47959346        83280   170685
@@ -210,5 +213,6 @@ def energy(crd_file,ff_files,pair_file,pair_style,pairs,guests,lj_cut=12.8,lj_sc
 #energy('MOF841_Node_Water_2_Re_SPC.crd',['UFF.ff','Water.ff'],'','',[],[71,72,73],debug=True)
 #energy('MOF841_Node_Water_2_Re_HtoHw_SPC.crd',['UFF.ff','Water.ff'],'','',[],[71,72,73],debug=True)
 #energy('MOF841_Node_Water_2_Re_HtoHw_TIP4PEW.crd',['UFF.ff','Water.ff'],'','',[],[71,72,73,74],debug=True)
-#energy('MgComplex_TIP4PEW.crd',['UFF.ff','Water.ff'],'LJ1264.pair','LJ1264',[[1,13]],[13,14,15,16],debug=True)
+energy('MgComplex_TIP4PEW.crd',['UFF.ff','Water.ff'],'LJ1264.pair','LJ1264',[[1,13]],[13,14,15,16],debug=True)
 #energy('MgComplex_TIP4PEW.crd',['UFF.ff','Water.ff'],'Morse.pair','Morse',[[1,13]],[13,14,15,16],debug=True)
+

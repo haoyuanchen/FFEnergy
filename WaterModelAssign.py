@@ -96,5 +96,5 @@ def water(crd_file,water_model,waters,geom):  #all atom indices are 1-start, lik
 #water('MOF841_Node_Water_2_Re.crd','SPC',[[71,72,73]],geom=False)
 #water('MOF841_Node_Water_2_Re_HtoHw.crd','SPC',[[71,72,73]],geom=False)
 #water('MOF841_Node_Water_2_Re_HtoHw.crd','TIP4PEW',[[71,72,73]],geom=False)
-#water('MgComplex.crd','TIP4PEW',[[13,14,15]],geom=False)
+water('MgComplex.crd','TIP4PEW',[[13,14,15]],geom=False)
 

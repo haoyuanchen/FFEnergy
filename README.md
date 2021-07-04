@@ -6,9 +6,11 @@ Quick start:
 (2) if your system contains water molecules that need to be modeled with standard water models, run WaterModelAssign.py to generate a new .crd file (see examples inside)
 (3) run FFEnergy.py (see examples inside)
 
-Available force fields: UFF, AMBER-ff99SB
+Available force fields: UFF, AMBER-ff99SB, TraPPE-UA
 Available water models: SPC, SPC/E, TIP3P, TIP4P, TIP4P-Ew
 Available special potentials: 12-6-4 LJ, Morse
+
+Only non-bonded interactions, not planning to add bonded terms
 
 Notes: 
 (1) The special potential (.pair file) will override the default 12-6 LJ (but not Coulomb) potential for selected atom pairs.
