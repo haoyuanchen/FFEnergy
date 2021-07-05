@@ -157,13 +157,13 @@ def pair_morse(pair1,cut=12.8,scheme='T',debug=False):
         if r >= cut:
             e = 0.0
         else:
-            e = de*(1-np.exp(a*(re-r)))**2
+            e = de*(1-np.exp(a*(re-r)))**2-de
     elif scheme == 'S':  #shifted vertically to have 0 value at cutoff
         if r >= cut:
             e = 0.0
         else:
-            e_end = de*(1-np.exp(a*(re-cut)))**2
-            e = de*(1-np.exp(a*(re-r)))**2 - e_end
+            e_end = de*(1-np.exp(a*(re-cut)))**2-de
+            e = de*(1-np.exp(a*(re-r)))**2-de - e_end
     #elif scheme == 'TTC':  #truncated with tail corrections
     if debug:
         print(pair1.element1,pair1.element2,r,'A,',e*0.0083,'kJ/mol,Morse')
@@ -213,6 +213,6 @@ def energy(crd_file,ff_files,pair_file,pair_style,pairs,guests,lj_cut=12.8,lj_sc
 #energy('MOF841_Node_Water_2_Re_SPC.crd',['UFF.ff','Water.ff'],'','',[],[71,72,73],debug=True)
 #energy('MOF841_Node_Water_2_Re_HtoHw_SPC.crd',['UFF.ff','Water.ff'],'','',[],[71,72,73],debug=True)
 #energy('MOF841_Node_Water_2_Re_HtoHw_TIP4PEW.crd',['UFF.ff','Water.ff'],'','',[],[71,72,73,74],debug=True)
-energy('MgComplex_TIP4PEW.crd',['UFF.ff','Water.ff'],'LJ1264.pair','LJ1264',[[1,13]],[13,14,15,16],debug=True)
+#energy('MgComplex_TIP4PEW.crd',['UFF.ff','Water.ff'],'LJ1264.pair','LJ1264',[[1,13]],[13,14,15,16],debug=True)
 #energy('MgComplex_TIP4PEW.crd',['UFF.ff','Water.ff'],'Morse.pair','Morse',[[1,13]],[13,14,15,16],debug=True)
-
+#energy('HKUST1_Node_Methane.crd',['UFF.ff','TraPPEUA.ff'],'Morse.pair','Morse',[[4,60],[5,60]],[59,60,61,62,63],debug=True)

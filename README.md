@@ -2,7 +2,7 @@
 Light-weight calculator of binding energy in host-guest complexes using force fields and electrostatics
 
 Quick start:
-(1) make a .crd file of your system--very similar to the .xyz format, just add a column of partial charges in the end and remove the first 2 lines
+(1) make a .crd file of your system--very similar to the .xyz format, just add a column of partial charges in the end and remove the first 2 lines--change some atom names if necessary, especially when you're using non-UFF force fields
 (2) if your system contains water molecules that need to be modeled with standard water models, run WaterModelAssign.py to generate a new .crd file (see examples inside)
 (3) run FFEnergy.py (see examples inside)
 

@@ -9,6 +9,7 @@ CH_sp2sp2          52.0     3.71     #CH in 1,3-butadiene
 CH_ar              50.5     3.695    #aromatic CH
 C_ar               21.0     3.88     #aromatic C
 C_arar             30.0     3.70     #C9 and C10 in naphthalene
+H_ua                0.0     1.0      #H in UA models have 0 LJ
 O_roh              93.0     3.02     #alcohol
 H_roh               0.0     1.0      #alcohol
 S_rsh             232.0     3.62     #thiol
