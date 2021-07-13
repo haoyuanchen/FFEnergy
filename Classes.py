@@ -12,6 +12,11 @@ class atom(object):
     def __init__(self, crd_line, crd_idx=1):
         self.idx = crd_idx  #1-start
         self.element = crd_line.strip().split()[0]
+        self.realelement = crd_line.strip().split()[0][:2]  #elements can't have more than 2 chars
+        if self.realelement.isupper():
+            self.realelement = self.realelement[:1]  #2nd char can't be uppercase
+        if self.realelement in ['Ow','Hw','Mw']:
+            self.realelement = self.realelement[:1]  #water model case
         self.x = float(crd_line.strip().split()[1])
         self.y = float(crd_line.strip().split()[2])
         self.z = float(crd_line.strip().split()[3])
@@ -23,6 +28,9 @@ class atom(object):
         self.sigma = ff_dict[self.element][1]
     def crdwrite(self):
         line = '%s %12.6f %12.6f %12.6f %12.6f'%(self.element,self.x,self.y,self.z,self.charge)
+        return line
+    def xyzwrite(self):
+        line = '%s %12.6f %12.6f %12.6f'%(self.realelement,self.x,self.y,self.z)
         return line
 
 class pair(object):
