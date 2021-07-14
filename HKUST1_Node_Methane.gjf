@@ -1,7 +1,7 @@
 %nproc=28
 %mem=16GB
 %chk=HKUST1_Node_Methane.chk
-#p M06L/gen empiricaldispersion=gd3
+#p M06L/gen empiricaldispersion=gd3 opt  SCF=XQC
 
 FFEnergy
 
@@ -70,7 +70,7 @@ H    14.025132    10.607432    23.008095
 H    12.279119    10.560044    23.055622
 H    13.210249     9.516083    24.102622
 
-O C H  0
+H C O  0
 def2SVP
 ****
 Cu  0

@@ -23,10 +23,11 @@ def xyz_write(crd_file):
     n = len(atoms)
     f.write(str(n)+'\n\n')
     for a in atoms:
-        f.write(a.xyzwrite()+'\n')
+        if a.realelement != 'M':
+            f.write(a.xyzwrite()+'\n')
     f.close()
 
-def gjf_write(crd_file,chg=0,multi=1,theory='B3LYP',basis='def2SVP',ecp=['',''],dispersion='gd3bj',opt=False,freq=False,scrf='',solvent='',pop='',nproc=1,mem=1,chk=True):
+def gjf_write(crd_file,chg=0,multi=1,theory='B3LYP',basis='def2SVP',ecp=['',''],dispersion='gd3bj',opt=False,freq=False,scrf='',solvent='',pop='',nproc=1,mem=1,chk=True,additional=''):
     #just basic and most common cases that could be useful in FF-related stuff, not meant to be comprehensive at all
     atoms = crd_parse(crd_file)
     f = open(crd_file.replace('.crd','.gjf'), 'w')
@@ -41,26 +42,22 @@ def gjf_write(crd_file,chg=0,multi=1,theory='B3LYP',basis='def2SVP',ecp=['',''],
     else:
         mainline += basis
     if dispersion:
-        mainline += ' empiricaldispersion='
-        mainline += dispersion
+        mainline += ' empiricaldispersion='+dispersion
     if opt:
         mainline += ' opt '
     if freq:
         mainline += ' freq '
     if scrf:
-        mainline += ' scrf('
-        mainline += scrf
-        mainline += ',solvent='
-        mainline += solvent
-        mainline += ') '
+        mainline += ' scrf('+scrf+',solvent='+solvent+') '
     if pop:
-        mainline += ' pop='
-        mainline += pop
+        mainline += ' pop='+pop
+    mainline += ' '+additional
     f.write(mainline+'\n')
     f.write('\nFFEnergy\n\n')
     f.write('%d %d\n'%(chg,multi))
     for a in atoms:
-        f.write(a.xyzwrite()+'\n')
+        if a.realelement != 'M':
+            f.write(a.xyzwrite()+'\n')
     f.write('\n')
     elemlist = []
     for a in atoms:
@@ -70,6 +67,8 @@ def gjf_write(crd_file,chg=0,multi=1,theory='B3LYP',basis='def2SVP',ecp=['',''],
     if ''.join(ecp):
         ecpelems = ecp[0].split()
         regelems = list(set(elemlist)-set(ecpelems))
+        if 'M' in regelems:
+            regelems.remove('M')
         l1 = ''
         for e in regelems:
             l1 += e
@@ -94,5 +93,5 @@ def gjf_write(crd_file,chg=0,multi=1,theory='B3LYP',basis='def2SVP',ecp=['',''],
 
 #single run example
 #xyz_write('MOF841_Node_Water_2_Re_HtoHw.crd')
-#gjf_write('HKUST1_Node_Methane.crd',chg=0,multi=1,theory='M06L',basis='def2SVP',ecp=['Cu','SDD'],dispersion='gd3',opt=False,freq=False,scrf='',solvent='',pop='',nproc=28,mem=16,chk=True)
-
+#gjf_write('HKUST1_Node_Methane.crd',chg=0,multi=1,theory='M06L',basis='def2SVP',ecp=['Cu','SDD'],dispersion='gd3',opt=True,freq=False,scrf='',solvent='',pop='',nproc=28,mem=16,chk=True,additional='SCF=XQC')
+#gjf_write('MOF841_Node_Water_2_Re_HtoHw_TIP4PEW.crd',chg=0,multi=1,theory='M06L',basis='def2SVP',ecp=['Zr','SDD'],dispersion='gd3',opt=False,freq=False,scrf='',solvent='',pop='',nproc=28,mem=16,chk=True,additional='')
