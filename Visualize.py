@@ -95,3 +95,5 @@ def gjf_write(crd_file,chg=0,multi=1,theory='B3LYP',basis='def2SVP',ecp=['',''],
 #xyz_write('MOF841_Node_Water_2_Re_HtoHw.crd')
 #gjf_write('HKUST1_Node_Methane.crd',chg=0,multi=1,theory='M06L',basis='def2SVP',ecp=['Cu','SDD'],dispersion='gd3',opt=True,freq=False,scrf='',solvent='',pop='',nproc=28,mem=16,chk=True,additional='SCF=XQC')
 #gjf_write('MOF841_Node_Water_2_Re_HtoHw_TIP4PEW.crd',chg=0,multi=1,theory='M06L',basis='def2SVP',ecp=['Zr','SDD'],dispersion='gd3',opt=False,freq=False,scrf='',solvent='',pop='',nproc=28,mem=16,chk=True,additional='')
+#gjf_write('MgComplex_TIP4PEW.crd',chg=0,multi=1,theory='B3LYP',basis='6-31G*',ecp=['',''],dispersion='gd3bj',opt=True,freq=False,scrf='PCM',solvent='water',pop='',nproc=28,mem=16,chk=True,additional='')
+#gjf_write('MgComplex_TIP4PEW_RIGID.crd',chg=0,multi=1,theory='B3LYP',basis='6-31G*',ecp=['',''],dispersion='gd3bj',opt=True,freq=False,scrf='PCM',solvent='water',pop='',nproc=28,mem=16,chk=True,additional='')
