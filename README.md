@@ -1,7 +1,13 @@
 # FFEnergy
-Light-weight calculator of binding energy in host-guest complexes using force fields and electrostatics.
+Light-weight calculator (with GUI available) of binding energy in host-guest complexes using force fields and electrostatics.
 
-Quick start:
+![GUI](GUI.png)
+
+Quick start (GUI):
+
+Simply go from top to bottom, click corresponding "Load" or "Set" buttons after finishing each part. Visualization is available if you have ase installed.
+
+Quick start (script):
 
 (1) make a .crd file of your system--very similar to the .xyz format, just add a column of partial charges in the end and remove the first 2 lines--change some atom names if necessary, especially when you're using non-UFF force fields.
 

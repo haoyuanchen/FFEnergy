@@ -99,7 +99,7 @@ def add_m(atom_o,atom_h1,atom_h2,water_model):
     crd_m = crd_o + vec_om
     crd_line_m = '%s %12.6f %12.6f %12.6f %12.6f'%('Mw'+water_model,crd_m[0],crd_m[1],crd_m[2],chg)
     atom_m = atom(crd_line_m)
-    print(pair(atom_o,atom_m).r)  #checking if O-M distance is right
+    #print(pair(atom_o,atom_m).r)  #checking if O-M distance is right
     return atom_m
 
 def water(crd_file,water_model,waters,geom):  #all atom indices are 1-start, like in FFEnergy.py
@@ -137,10 +137,13 @@ def water(crd_file,water_model,waters,geom):  #all atom indices are 1-start, lik
         #re-assign all the indices, not necessary though
         for i,a in enumerate(atoms):
             a.idx = i+1
+    newcrdfile = ''
     if geom:
-        crd_write(atoms,crd_file.replace('.crd','_'+water_model+'_RIGID.crd'))
+        newcrdfile = crd_file.replace('.crd','_'+water_model+'_RIGID.crd')
     else:
-        crd_write(atoms,crd_file.replace('.crd','_'+water_model+'.crd'))
+        newcrdfile = crd_file.replace('.crd','_'+water_model+'.crd')
+    crd_write(atoms,newcrdfile)
+    return newcrdfile
 
 #single run example
 #water('MOF841_Node_Water_2_Re.crd','SPC',[[71,72,73]],geom=False)
