@@ -1,32 +1,55 @@
 # FFEnergy
+
 Light-weight calculator (with GUI available) of binding energy in host-guest complexes using force fields and electrostatics.
 
-Quick start (GUI):
+By Haoyuan Chen
 
-(1) make a .crd file of your system--very similar to the .xyz format, just add a column of partial charges in the end and remove the first 2 lines--change some atom names if necessary, especially when you're using non-UFF force fields.
+![Screenshot](Screenshot.png)
 
-(2) open GUI.py, simply go from top to bottom, click corresponding "Load" or "Set" buttons after finishing each part. Visualization is available if you have ase installed.
+## Quick start (GUI)
 
-Quick start (script):
+1. Make a .crd file of your system (super easy, see below).
+2. Open `GUI.py`, simply go from top to bottom, click corresponding "Load" or "Set" buttons after finishing each section, then calculate the binding energy in the last section.
 
-(1) make a .crd file of your system--very similar to the .xyz format, just add a column of partial charges in the end and remove the first 2 lines--change some atom names if necessary, especially when you're using non-UFF force fields.
+## Quick start (script)
 
-(2) if your system contains water molecules that need to be modeled with standard water models, run WaterModelAssign.py to generate a new .crd file (see the examples).
+1. Make a .crd file of your system (super easy, see below).
+2. Run `WaterModelAssign.py` if you have water molecules in your system that you want to describe using a standard water model (see the examples).
+3. Run `FFEnergy.py` to calculate the binding energy (see the examples).
 
-(3) run FFEnergy.py (see the examples).
+## Format of .crd file
 
-Available force fields: UFF, AMBER-ff99SB, TraPPE-UA.
+Each line in .crd file looks like: **Atom Name**  **X**  **Y**  **Z**  **Partial Charge**. For example:   
+Zr    1.364   1.433   1.676    1.603481   
+The partial charge can be obtained from QM calculations. Do not leave it blank if you do not have partial charge for this atom, put 0.0 instead. Another example:   
+O\_roh    2.609   3.045   1.190   -0.802568   
+Here, the atom name O\_roh contains more information than just the chemical element. It refers to an O atom with the roh type, which is defined in `TraPPEUA.ff`.   
+If you have water molecules that need to be described using standard water models, then the partial charge of those atoms will be overwritten after running `WaterModelAssign.py` anyway. The script (or the 'Set Waters' button in the GUI) will also create a new .crd file with the name of the water model specified.
 
-Available water models: SPC, SPC/E, TIP3P, TIP4P, TIP4P-Ew.
+## Example 1: Binding energy between a Mg2+ ion and a water molecule
 
-Available special pair potentials: 12-6-4 LJ, Morse.
+See `examples/Mg\_water\_binding`
 
-Only non-bonded interactions, not planning to add bonded terms.
+## Example 2: Binding energy of a water molecule on a MOF node
 
-Notes: 
+See `examples/water\_MOF\_binding`
 
-(1) The special potential (.pair file) will override the default 12-6 LJ (but not Coulomb) potential for selected atom pairs.
+## Features
 
-(2) When reading multiple force fields (.ff files), if same atom names are used in multiple files, the parameters in the last file will override the previous ones.
+- All parameters are in light-weight and human-readable plain text formats, easy to view and edit.
+- Available force fields: UFF, AMBER-ff99SB, TraPPE-UA.
+- Available water models: SPC, SPC/E, TIP3P, TIP4P, TIP4P-Ew.
+- Available special pair potentials: 12-6-4 LJ, Morse.
+- Can adjust the geometry of defined water molecules to be the same as defined in water models, which can come handy in comparing energies.
+- Can visualize the structure in the GUI (requires [ase](https://wiki.fysik.dtu.dk/ase/)).
 
-(3) Cr, Fe and Ce have different 12-6-4 parameters for different oxidation states.
+## To-do
+
+- Potential energy scan along 'reaction coordinates'.
+
+## Notes 
+
+1. The special potential (.pair file) will override the default 12-6 LJ (but not Coulomb) potential for selected atom pairs.
+2. When reading multiple force fields (.ff files), if same atom names are used in multiple files, the parameters in the last file will override the previous ones.
+3. Cr, Fe and Ce have different 12-6-4 parameters for different oxidation states.
+4. When using 4-point water models, remember to include the additional dummy site in guest atoms.
