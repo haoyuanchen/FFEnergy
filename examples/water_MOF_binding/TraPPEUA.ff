@@ -1,0 +1,27 @@
+CH4_sp3           148.0     3.73
+CH3_sp3            98.0     3.75
+CH2_sp3            46.0     3.95
+CH_sp3             10.0     4.68
+C_sp3               0.5     6.4 
+CH2_sp2            85.0     3.675    #terminal CH2
+CH_sp2sp3          47.0     3.73     #CH in propene
+CH_sp2sp2          52.0     3.71     #CH in 1,3-butadiene
+CH_ar              50.5     3.695    #aromatic CH
+C_ar               21.0     3.88     #aromatic C
+C_arar             30.0     3.70     #C9 and C10 in naphthalene
+H_ua                0.0     1.0      #H in UA models have 0 LJ
+O_roh              93.0     3.02     #alcohol
+H_roh               0.0     1.0      #alcohol
+S_rsh             232.0     3.62     #thiol
+H_rsh               0.0     1.0      #thiol
+O_ror              55.0     2.80     #ether
+S_rsr             199.0     3.58     #sulfide
+S_rssr            165.0     3.72     #disulfide
+O_rcho             79.0     3.05     #aldehyde
+CH_rcho            54.0     3.52     #aldehyde
+C_rcor             40.0     3.82     #ketone
+O_rcor             79.0     3.05     #ketone
+O_co2              79.0     3.05
+C_co2              27.0     2.80
+N_n2               36.0     3.31
+O_o2               49.0     3.02

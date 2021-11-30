@@ -1,31 +1,29 @@
 # FFEnergy
 Light-weight calculator (with GUI available) of binding energy in host-guest complexes using force fields and electrostatics.
 
-![GUI](GUI.png)
-
 Quick start (GUI):
 
-Simply go from top to bottom, click corresponding "Load" or "Set" buttons after finishing each part. Visualization is available if you have ase installed.
+(1) make a .crd file of your system--very similar to the .xyz format, just add a column of partial charges in the end and remove the first 2 lines--change some atom names if necessary, especially when you're using non-UFF force fields.
+
+(2) open GUI.py, simply go from top to bottom, click corresponding "Load" or "Set" buttons after finishing each part. Visualization is available if you have ase installed.
 
 Quick start (script):
 
 (1) make a .crd file of your system--very similar to the .xyz format, just add a column of partial charges in the end and remove the first 2 lines--change some atom names if necessary, especially when you're using non-UFF force fields.
 
-(2) if your system contains water molecules that need to be modeled with standard water models, run WaterModelAssign.py to generate a new .crd file (see examples inside).
+(2) if your system contains water molecules that need to be modeled with standard water models, run WaterModelAssign.py to generate a new .crd file (see the examples).
 
-(3) run FFEnergy.py (see examples inside).
-
-Can adjust the water coordinates to be one of the rigid water model geometries with the geom option in WaterModelAssign.py.
-
-Can use Visualize.py to convert .crd to .xyz (for visualization) or .gjf (for quantum calculation).
+(3) run FFEnergy.py (see the examples).
 
 Available force fields: UFF, AMBER-ff99SB, TraPPE-UA.
 
 Available water models: SPC, SPC/E, TIP3P, TIP4P, TIP4P-Ew.
 
-Available special potentials: 12-6-4 LJ, Morse.
+Available special pair potentials: 12-6-4 LJ, Morse.
 
 Only non-bonded interactions, not planning to add bonded terms.
+
+Planning to add (1) potential energy scan (2) support for periodic system.
 
 Notes: 
 
