@@ -23,8 +23,6 @@ Available special pair potentials: 12-6-4 LJ, Morse.
 
 Only non-bonded interactions, not planning to add bonded terms.
 
-Planning to add (1) potential energy scan (2) support for periodic system.
-
 Notes: 
 
 (1) The special potential (.pair file) will override the default 12-6 LJ (but not Coulomb) potential for selected atom pairs.

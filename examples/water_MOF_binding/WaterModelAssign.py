@@ -2,16 +2,8 @@
 
 '''
 assign water model parameters to selected water molecules in the crd file
-can choose to adjust the geometry of the water or not (geom=True/False)
 
 Haoyuan Chen
-
-Model		R(O-H)		A(H-O-H)	Sigma(O)	Epsilon(O)	q(O)		q(H)		R(O-M)		q(M)
-SPC		1.0		109.47		3.166		78.15		-0.82		+0.41		N/A		N/A
-SPCE		1.0		109.47		3.166		78.15		-0.8476		+0.4238		N/A		N/A
-TIP3P		0.9572		104.52		3.151		76.53		-0.834		+0.417		N/A		N/A
-TIP4P		0.9572		104.52		3.154		78.0		0.0		+0.52		0.15		-1.04
-TIP4PEW		0.9572		104.52		3.164		81.9		0.0		+0.52422	0.125		-1.04844
 '''
 
 from Classes import *

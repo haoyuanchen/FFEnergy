@@ -1,0 +1,39 @@
+example coordinate file (X/Y/Z in A, charge in e) (no empty lines in the end):
+Mg   -0.806425    -1.373218    -0.010104     1.400000
+O    -0.760397    -1.365648    -2.022940    -0.700000
+O     1.105258    -1.365661    -0.323754    -0.700000
+O    -2.789777    -1.339555     0.092605    -0.700000
+O    -1.023411    -1.343591     1.914885    -0.700000
+O    -0.830931    -3.381630    -0.035571    -1.000000
+H    -0.790376    -3.701630    -0.922564     0.500000
+H    -0.053094    -3.701630     0.461244     0.500000
+C    -2.452487    -1.387752     1.558865     0.700000
+H    -3.350230    -1.430799     2.256332     0.000000
+C     0.740047    -1.361630    -1.700270     0.700000
+H     1.361724    -1.361630    -2.763092     0.000000
+
+example force field file (epsilon in K, sigma in A) (no empty lines in the end) (can have comments after the numbers):
+H     22.14    2.57
+He    10.9     2.64
+Hf    36.23    2.80
+Hg    193.71   2.41
+Ho    3.52     3.04
+
+example LJ1264 pair file (C12, C6, C4 (all in units derived from K and A)) (no empty lines in the end) (can have comments after the numbers) (order in pair doesn't matter):
+Cu      OwTIP4PEW       47959346        83280   170685
+Ni      OwTIP4PEW       32418361        61863   130429
+Zn      OwTIP4PEW       38703873        70811   137021
+Co      OwTIP4PEW       40424743        73189   127209
+Cr      OwTIP4PEW       30988048        59762   89268
+Fe      OwTIP4PEW       38703873        70811   101194
+Mg      OwTIP4PEW       34207179        64455   90828
+
+example Morse pair file (De, re, a (all in units derived from K and A)) (no empty lines in the end) (can have comments after the numbers) (order in pair doesn't matter):
+Mg    OwTIP4PEW    1000  2.0  1.0
+
+Water Model	R(O-H)		A(H-O-H)	Sigma(O)	Epsilon(O)	q(O)		q(H)		R(O-M)		q(M)
+SPC		1.0		109.47		3.166		78.15		-0.82		+0.41		N/A		N/A
+SPCE		1.0		109.47		3.166		78.15		-0.8476		+0.4238		N/A		N/A
+TIP3P		0.9572		104.52		3.151		76.53		-0.834		+0.417		N/A		N/A
+TIP4P		0.9572		104.52		3.154		78.0		0.0		+0.52		0.15		-1.04
+TIP4PEW		0.9572		104.52		3.164		81.9		0.0		+0.52422	0.125		-1.04844

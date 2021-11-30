@@ -28,17 +28,23 @@ class MainPage(object):
         self.ff_dict = {}
         self.watermodel = ''
         self.waters = []
-        self.watergeomval = IntVar()
         self.watergeom = 0
+        self.watergeomval = IntVar(value=self.watergeom)
         self.pairs = []
         self.pairstyle = ''
         self.elj = 0.0
         self.ec = 0.0
         self.et = 0.0
+        self.lj_cut = 12.8
+        self.lj_scheme = 'T'
+        self.lj_mix = 'LB'
+        self.coulomb_cut = 12.8
+        self.debug = 0
+        self.debugval = IntVar(value=self.debug)
         self.row = 0
 
-        self.main_label = Label(master, text=info, justify=CENTER)
-        self.main_label.grid(row=self.row, columnspan=12)
+        self.section1_label = Label(master, text='1. Load Coordinates and Force Field Files', justify=CENTER, foreground='blue', font=('TkDefaultFont',16))
+        self.section1_label.grid(row=self.row, columnspan=12)
         self.row += 1 # next row
 
         self.crd_label = Label(master, text='Coordinates file:')
@@ -83,7 +89,11 @@ class MainPage(object):
         self.view_button.grid(row=self.row, column=2)
         self.row += 1 # next row
 
-        self.water_label = Label(master, text='Water atoms (1-start, separate with comma within water and semicolon between waters, OHH order):')
+        self.section2_label = Label(master, text='(Optional) 2. Define Water Molecules and Assign Water Model', justify=CENTER, foreground='green', font=('TkDefaultFont',16))
+        self.section2_label.grid(row=self.row, columnspan=12)
+        self.row += 1 # next row
+
+        self.water_label = Label(master, text='Water atoms (1-start, separate with , within water and ; between waters, OHH order):')
         self.water_label.grid(row=self.row, sticky=W)
         self.water_entry = Entry(master)
         self.water_entry.grid(row=self.row, column=2, columnspan=8)
@@ -94,15 +104,20 @@ class MainPage(object):
         self.wm_label.grid(row=self.row, sticky=W)
         self.wm_combo = Combobox(master, values=('SPC','SPCE','TIP3P','TIP4P','TIP4PEW'), state="readonly")
         self.wm_combo.grid(row=self.row, column=2)
+        self.wm_combo.current(0)
         self.row += 1 # next row
 
-        self.adjust_check = Checkbutton(master, text='Adjust the geometry of waters?', variable=self.watergeom)
+        self.adjust_check = Checkbutton(master, text='Adjust the geometry of waters?', variable=self.watergeomval)
         self.adjust_check.grid(row=self.row, sticky=W)
         self.water_button = Button(master, text='Set Waters', command=self.set_waters)
         self.water_button.grid(row=self.row, column=11)
         self.row += 1 # next row
 
-        self.guest_label = Label(master, text='Guest atoms (1-start, separate with comma, do not forget the dummy site in 4-point water model):')
+        self.section3_label = Label(master, text='3. Select Guest Atoms', justify=CENTER, foreground='blue', font=('TkDefaultFont',16))
+        self.section3_label.grid(row=self.row, columnspan=12)
+        self.row += 1 # next row
+
+        self.guest_label = Label(master, text='Guest atoms (1-start, separate with , , do not forget the M site in 4-pt water model):')
         self.guest_label.grid(row=self.row, sticky=W)
         self.guest_entry = Entry(master)
         self.guest_entry.grid(row=self.row, column=2, columnspan=8)
@@ -111,7 +126,11 @@ class MainPage(object):
         self.guest_button.grid(row=self.row, column=11)
         self.row += 1 # next row
 
-        self.pair_label = Label(master, text='Atom pairs with special interactions (1-start, separate with comma within pair and semicolon between pairs):')
+        self.section4_label = Label(master, text='(Optional) 4. Add Special Pair Interactions', justify=CENTER, foreground='green', font=('TkDefaultFont',16))
+        self.section4_label.grid(row=self.row, columnspan=12)
+        self.row += 1 # next row
+
+        self.pair_label = Label(master, text='Atom pairs with special interactions (1-start, separate with , within pair and ; between pairs):')
         self.pair_label.grid(row=self.row, sticky=W)
         self.pair_entry = Entry(master)
         self.pair_entry.grid(row=self.row, column=2, columnspan=8)
@@ -131,12 +150,53 @@ class MainPage(object):
         self.ps_label.grid(row=self.row, sticky=W)
         self.ps_combo = Combobox(master, values=('LJ1264','Morse'), state="readonly")
         self.ps_combo.grid(row=self.row, column=2)
+        self.ps_combo.current(0)
         self.pair_button = Button(master, text='Set Pairs', command=self.set_pairs)
         self.pair_button.grid(row=self.row, column=11)
         self.row += 1 # next row
 
+        self.section5_label = Label(master, text='5. Define Parameters for the Interaction Potentials', justify=CENTER, foreground='blue', font=('TkDefaultFont',16))
+        self.section5_label.grid(row=self.row, columnspan=12)
+        self.row += 1 # next row
+
+        self.ljmixmethod_label = Label(master, text='LJ mixing scheme:')
+        self.ljmixmethod_label.grid(row=self.row, sticky=W)
+        self.ljmixmethod_combo = Combobox(master, values=('Lorentz-Berthelot','Waldman-Hagler'), state="readonly")
+        self.ljmixmethod_combo.grid(row=self.row, column=2)
+        self.ljmixmethod_combo.current(0)
+        self.row += 1 # next row
+
+        self.ljcutmethod_label = Label(master, text='LJ cut-off scheme:')
+        self.ljcutmethod_label.grid(row=self.row, sticky=W)
+        self.ljcutmethod_combo = Combobox(master, values=('Truncated','Shifted'), state="readonly")
+        self.ljcutmethod_combo.grid(row=self.row, column=2)
+        self.ljcutmethod_combo.current(0)
+        self.row += 1 # next row
+
+        self.ljcut_label = Label(master, text='LJ cut-off (Angstrom):')
+        self.ljcut_label.grid(row=self.row, sticky=W)
+        self.ljcut_entry = Entry(master)
+        self.ljcut_entry.grid(row=self.row, column=2, columnspan=8)
+        self.ljcut_entry.insert(0,'12.8')
+        self.row += 1 # next row
+
+        self.ccut_label = Label(master, text='Coulomb cut-off (Angstrom):')
+        self.ccut_label.grid(row=self.row, sticky=W)
+        self.ccut_entry = Entry(master)
+        self.ccut_entry.grid(row=self.row, column=2, columnspan=8)
+        self.ccut_entry.insert(0,'12.8')
+        self.param_button = Button(master, text='Set Parameters', command=self.set_params)
+        self.param_button.grid(row=self.row, column=11)
+        self.row += 1 # next row
+
+        self.section6_label = Label(master, text='6. Calculate the Binding Energy!', justify=CENTER, foreground='red', font=('TkDefaultFont',16))
+        self.section6_label.grid(row=self.row, columnspan=12)
+        self.row += 1 # next row
+
         self.run_button = Button(master, text='Get Binding Energy', command=self.run)
         self.run_button.grid(row=self.row, sticky=W)
+        self.debug_check = Checkbutton(master, text='Debug (will print details on command line)', variable=self.debugval)
+        self.debug_check.grid(row=self.row, column=2)
         self.row += 1 # next row
 
         self.elj_label = Label(master, text='VDW Energy (kJ/mol):')
@@ -227,6 +287,21 @@ class MainPage(object):
             p2 = int(pp[1])
             self.pairs.append([p1,p2])
 
+    def set_params(self):
+        ljmix = self.ljmixmethod_combo.get()
+        if ljmix == 'Lorentz-Berthelot':
+            self.lj_mix = 'LB'
+        elif ljmix == 'Waldman-Hagler':
+            self.lj_mix = 'WH'
+        ljsch = self.ljcutmethod_combo.get()
+        if ljsch == 'Truncated':
+            self.lj_scheme = 'T'
+        elif ljsch == 'Shifted':
+            self.lj_scheme = 'S'
+        self.lj_cut = float(self.ljcut_entry.get())
+        self.coulomb_cut = float(self.ccut_entry.get())
+
+
     def load_files(self):
         self.crd_parse()
         self.ff_parse()
@@ -266,11 +341,12 @@ class MainPage(object):
             self.ff_dict[element] = [epsilon, sigma]
 
     def run(self):
+        self.debug = self.debugval.get()
         if self.waters:
             crd = WaterModelAssign.water(self.crd_file,self.watermodel,self.waters,self.watergeom)    
         else:
             crd = self.crd_file
-        (self.elj, self.ec, self.et) = FFEnergy.energy(crd,self.ff_files,self.pair_file,self.pairstyle,self.pairs,self.guests,debug=False)
+        (self.elj, self.ec, self.et) = FFEnergy.energy(crd,self.ff_files,self.pair_file,self.pairstyle,self.pairs,self.guests,self.lj_cut,self.lj_scheme,self.lj_mix,self.coulomb_cut,self.debug)
         self.elj_entry.delete(0,END)
         self.elj_entry.insert(0,str(self.elj))
         self.ec_entry.delete(0,END)
@@ -310,7 +386,7 @@ class MainPage(object):
 if __name__ =='__main__':
 
     root = Tk()
-    root.title("FFEnergy GUI")
+    root.title("GUI for FFEnergy program")
     gui = MainPage(root)
     root.mainloop()
 
