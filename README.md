@@ -19,20 +19,20 @@ By Haoyuan Chen
 
 ## Format of .crd file
 
-Each line in .crd file looks like: **Atom Name**  **X**  **Y**  **Z**  **Partial Charge**. For example:   
-Zr    1.364   1.433   1.676    1.603481   
+Each line in .crd file looks like: **Atom Name  X  Y  Z  Partial Charge**. For example:   
+**Zr    1.364   1.433   1.676    1.603481**
 The partial charge can be obtained from QM calculations. Do not leave it blank if you do not have partial charge for this atom, put 0.0 instead. Another example:   
-O\_roh    2.609   3.045   1.190   -0.802568   
+**O\_roh    2.609   3.045   1.190   -0.802568**
 Here, the atom name O\_roh contains more information than just the chemical element. It refers to an O atom with the roh type, which is defined in `TraPPEUA.ff`.   
 If you have water molecules that need to be described using standard water models, then the partial charge of those atoms will be overwritten after running `WaterModelAssign.py` anyway. The script (or the 'Set Waters' button in the GUI) will also create a new .crd file with the name of the water model specified.
 
 ## Example 1: Binding energy between a Mg2+ ion and a water molecule
 
-See `examples/Mg\_water\_binding`
+See `examples/Mg_water_binding`
 
 ## Example 2: Binding energy of a water molecule on a MOF node
 
-See `examples/water\_MOF\_binding`
+See `examples/water_MOF_binding`
 
 ## Features
 
